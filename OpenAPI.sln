@@ -7,11 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{15A55F4A-FC3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1669F896-133C-4996-B58C-E7CDA299ADFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Core", "src\OpenAPI.Core\OpenAPI.Core.csproj", "{60EF9E95-84D6-44CE-968D-50237424CB16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Core", "src\OpenApi.Generator.Core\OpenApi.Generator.Core.csproj", "{60EF9E95-84D6-44CE-968D-50237424CB16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Generator", "src\OpenAPI.Generator\OpenAPI.Generator.csproj", "{4AC6DB4A-CBA2-493D-88F8-82D631B9DA7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Generator", "src\OpenApi.Generator.Mvc\OpenApi.Generator.Mvc.csproj", "{4AC6DB4A-CBA2-493D-88F8-82D631B9DA7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Generator.Tests", "test\OpenAPI.Generator.Tests\OpenAPI.Generator.Tests.csproj", "{6E1DF729-097E-4BAA-86E4-61BD8A6C5209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAPI.Generator.Tests", "test\OpenApi.Generator.Mvc.Tests\OpenApi.Generator.Mvc.Tests.csproj", "{6E1DF729-097E-4BAA-86E4-61BD8A6C5209}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
