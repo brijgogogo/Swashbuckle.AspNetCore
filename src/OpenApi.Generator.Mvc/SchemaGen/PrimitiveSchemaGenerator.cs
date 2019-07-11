@@ -83,9 +83,22 @@ namespace OpenApi.Generator.Mvc
                         return OpenApiAnyFactory.TryCreateFor(schema, value, out IOpenApiAny openApiAny) ? openApiAny : null;
                     })
                     .ToList();
+
             }
 
+            schema.Description = DescribeEnum(enumType, enumType.GetEnumUnderlyingType());
+
             return schema;
+        }
+
+        private string DescribeEnum(Type enumType, Type underlyingType)
+        {
+            List<string> enumDescriptions = new List<string>();
+            foreach (object enumOption in enumType.GetEnumValues())
+            {
+                enumDescriptions.Add(string.Format("{0} = {1}", Convert.ChangeType(enumOption, underlyingType), Enum.GetName(enumOption.GetType(), enumOption)));
+            }
+            return string.Join(", ", enumDescriptions.ToArray());
         }
 
         private static readonly Dictionary<Type, Func<OpenApiSchema>> FactoryMethodMap = new Dictionary<Type, Func<OpenApiSchema>>
