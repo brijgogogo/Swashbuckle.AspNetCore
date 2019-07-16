@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenApi.Generator.Core\OpenApi.Generator.Core.csproj" />
+  </ItemGroup>
 </Project>
