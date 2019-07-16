@@ -44,7 +44,8 @@ namespace OpenApi.Generator.Mvc
         {
             try
             {
-                typedValue = (T)value;
+                typedValue = (T)Convert.ChangeType(value, typeof(T));
+                // typedValue = (T)value;
                 return true;
             }
             catch (InvalidCastException)

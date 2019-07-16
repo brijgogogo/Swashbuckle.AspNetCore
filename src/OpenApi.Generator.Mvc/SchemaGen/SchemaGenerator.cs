@@ -34,9 +34,9 @@ namespace OpenApi.Generator.Mvc
                 .Add(new PolymorphicSchemaGenerator(contractResolver, this, options))
                 .Add(new PrimitiveSchemaGenerator(contractResolver, this, serializerSettings, options))
                 .Add(new DictionarySchemaGenerator(contractResolver, this, options))
-                .Add(new ArraySchemaGenerator(contractResolver, this, options))
-                .Add(new ObjectSchemaGenerator(contractResolver, this, options))
-                .Add(new DataTableSchemaGenerator(contractResolver, this, options));
+                .Add(new ArraySchemaGenerator(contractResolver, this, serializerSettings, options))
+                .Add(new ObjectSchemaGenerator(contractResolver, this, serializerSettings, options))
+                .Add(new CustomSchemaGenerator(contractResolver, this, options));
         }
 
         public OpenApiSchema GenerateSchema(Type type, SchemaRepository schemaRepository)

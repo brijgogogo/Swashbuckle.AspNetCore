@@ -13,12 +13,17 @@ namespace OpenApi.Generator.Mvc
 {
     public class ObjectSchemaGenerator : ChainableSchemaGenerator
     {
+        private readonly JsonSerializerSettings _serializerSettings;
+
         public ObjectSchemaGenerator(
             IContractResolver contractResolver,
             ISchemaGenerator rootGenerator,
+            JsonSerializerSettings serializerSettings,
             SchemaGeneratorOptions options)
             : base(contractResolver, rootGenerator, options)
-        { }
+        {
+            _serializerSettings = serializerSettings;
+        }
 
         protected override bool CanGenerateSchemaFor(Type type)
         {
@@ -30,6 +35,8 @@ namespace OpenApi.Generator.Mvc
             var jsonObjectContract = (JsonObjectContract)ContractResolver.ResolveContract(type);
 
             var properties = new Dictionary<string, OpenApiSchema>();
+            AddTypeAttribute(_serializerSettings, type, properties);
+
             var requiredPropertyNames = new List<string>();
 
             foreach (var jsonProperty in jsonObjectContract.Properties)
@@ -63,6 +70,17 @@ namespace OpenApi.Generator.Mvc
             };
 
             return schema;
+        }
+
+        public static void AddTypeAttribute(JsonSerializerSettings serializerSettings, Type type, Dictionary<string, OpenApiSchema> properties)
+        {
+            if ((serializerSettings.TypeNameHandling & TypeNameHandling.Objects) == TypeNameHandling.Objects)
+            {
+                properties.Add("$type", new OpenApiSchema
+                {
+                    Example = new OpenApiString(TypeExtensions.GetTypeName(type))
+                });
+            }
         }
 
         private OpenApiSchema GeneratePropertySchema(

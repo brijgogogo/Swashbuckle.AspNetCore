@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
 namespace OpenApi.Generator.Mvc
 {
-    public class DataTableSchemaGenerator : ChainableSchemaGenerator
+    public class CustomSchemaGenerator : ChainableSchemaGenerator
     {
-        public DataTableSchemaGenerator(
+        public CustomSchemaGenerator(
             IContractResolver contractResolver,
             ISchemaGenerator rootGenerator,
             SchemaGeneratorOptions options)
@@ -16,19 +17,24 @@ namespace OpenApi.Generator.Mvc
 
         protected override bool CanGenerateSchemaFor(Type type)
         {
-            return ContractResolver.ResolveContract(type) is JsonISerializableContract;
+            return type == typeof(DataTable) || type == typeof(Exception);
         }
 
         protected override OpenApiSchema GenerateSchemaFor(Type type, SchemaRepository schemaRepository)
         {
-            var jsonContract = (JsonISerializableContract)ContractResolver.ResolveContract(type);
-
             if (!schemaRepository.TryGetIdFor(type, out string schemaId))
             {
                 schemaId = Options.SchemaIdSelector(type);
                 schemaRepository.ReserveIdFor(type, schemaId);
 
-                schemaRepository.AddSchemaFor(type, CreateSchema(schemaRepository));
+                if (type == typeof(DataTable))
+                {
+                    schemaRepository.AddSchemaFor(type, CreateDataTableSchema(schemaRepository));
+                }
+                else if (type == typeof(Exception))
+                {
+                    schemaRepository.AddSchemaFor(type, CreateExceptionSchema(schemaRepository));
+                }
             }
 
             return new OpenApiSchema
@@ -37,7 +43,7 @@ namespace OpenApi.Generator.Mvc
             };
         }
 
-        private OpenApiSchema CreateSchema(SchemaRepository schemaRepository)
+        private OpenApiSchema CreateDataTableSchema(SchemaRepository schemaRepository)
         {
             var schema = new OpenApiSchema
             {
@@ -56,6 +62,20 @@ namespace OpenApi.Generator.Mvc
             };
 
             return schema;
+        }
+
+        private OpenApiSchema CreateExceptionSchema(SchemaRepository schemaRepository)
+        {
+            return new OpenApiSchema
+            {
+                Type = "object",
+                Properties = new Dictionary<string, OpenApiSchema>
+                {
+                    ["Message"] = RootGenerator.GenerateSchema(typeof(string), schemaRepository),
+                    ["StackTraceString"] = RootGenerator.GenerateSchema(typeof(string), schemaRepository),
+                    ["Source"] = RootGenerator.GenerateSchema(typeof(string), schemaRepository),
+                }
+            };
         }
     }
 }

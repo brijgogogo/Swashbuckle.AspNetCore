@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>OpenApi.Generator.Mvc</AssemblyName>
     <PackageId>OpenApi.Generator.Mvc</PackageId>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <Authors>Brij</Authors>
   </PropertyGroup>
 
@@ -14,9 +14,5 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Formatters.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\OpenApi.Generator.Core\OpenApi.Generator.Core.csproj" />
   </ItemGroup>
 </Project>

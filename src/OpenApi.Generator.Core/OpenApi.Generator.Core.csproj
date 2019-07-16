@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>OpenApi.Generator.Core</AssemblyName>
     <PackageId>OpenApi.Generator.Core</PackageId>
-    <Version>0.0.2</Version>
+    <Version>0.0.4</Version>
     <Authors>Brij</Authors>
   </PropertyGroup>
 
